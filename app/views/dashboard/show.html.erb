@@ -1,0 +1,39 @@
+<h1>Calls</h1>
+
+<div style="width: 800px;">
+  <table>
+    <thead>
+      <tr>
+        <th>Date & Time</th>
+        <th>Provider</th>
+        <th>From</th>
+        <th>To</th>
+        <th>Status</th>
+        <th>Duration(sec)</th>
+        <th>Voicemail Url</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @calls.each do |call| %>
+        <tr>
+          <td><%= call.created_at.in_time_zone('Eastern Time (US & Canada)').strftime('%m/%d/%Y %l:%M%p') %><% %></td>
+          <td><%= call.provider %></td>
+          <td><%= call.from %></td>
+          <td><%= call.to %></td>
+          <td><%= call.call_status %></td>
+          <td><%= call.call_duration %></td>
+          <td>
+            <% if call.voicemail_url.present? %>
+              <a href='<%= call.voicemail_url %>' target='_blank' class='btn btn-xs btn-success'>Link</a>
+            <% else %>
+              N/A
+            <% end %>
+          </td>
+
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= will_paginate @calls %>
